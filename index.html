@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>FintechBank - Secure Banking</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="styles.css">
+    
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1a227f",
+                        "accent-teal": "#00BFA5",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#121320",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+
+    <!-- ==================== LOGIN/SIGNUP SCREEN ==================== -->
+    <div id="auth-screen" class="min-h-screen flex items-center justify-center p-4">
+        <div class="w-full max-w-md">
+            <!-- Logo -->
+            <div class="text-center mb-8">
+                <div class="inline-flex items-center gap-2 mb-2">
+                    <div class="p-2 bg-primary rounded-xl text-white">
+                        <span class="material-symbols-outlined text-3xl">account_balance</span>
+                    </div>
+                    <h1 class="text-3xl font-bold text-primary">FintechBank</h1>
+                </div>
+                <p class="text-slate-500">Secure Banking, Simplified</p>
+            </div>
+
+            <!-- Login Form Card -->
+            <div id="login-card" class="bg-white dark:bg-slate-900 rounded-xl shadow-xl border border-slate-200 dark:border-slate-800 p-8">
+                <h2 class="text-2xl font-bold text-slate-800 dark:text-white mb-6">Welcome Back</h2>
+                
+                <form id="login-form" class="space-y-4">
+                    <!-- Email Input -->
+                    <div>
+                        <label class="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2 block">Email</label>
+                        <input 
+                            id="login-email"
+                            type="email" 
+                            class="w-full px-4 py-3 bg-slate-100 dark:bg-slate-800 border-none rounded-lg focus:ring-2 focus:ring-primary"
+                            placeholder="your@email.com"
+                            required
+                        />
+                    </div>
+
+                    <!-- PIN Input -->
+                    <div>
+                        <label class="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2 block">PIN (4-6 digits)</label>
+                        <input 
+                            id="login-pin"
+                            type="password" 
+                            maxlength="6"
+                            class="w-full px-4 py-3 bg-slate-100 dark:bg-slate-800 border-none rounded-lg focus:ring-2 focus:ring-primary"
+                            placeholder="••••••"
+                            required
+                        />
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="w-full py-3 bg-primary hover:bg-opacity-90 text-white rounded-lg font-bold transition-all">
+                        Sign In
+                    </button>
+                </form>
+
+                <!-- Divider -->
+                <div class="relative my-6">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-slate-200 dark:border-slate-800"></div>
+                    </div>
+                    <div class="relative flex justify-center text-sm">
+                        <span class="px-2 bg-white dark:bg-slate-900 text-slate-500">New here?</span>
+                    </div>
+                </div>
+
+                <!-- Sign Up Link -->
+                <button id="show-signup-btn" class="w-full py-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-white rounded-lg font-bold transition-all">
+                    Create Account
+                </button>
+            </div>
+
+            <!-- Signup Form Card (Hidden by default) -->
+            <div id="signup-card" class="hidden bg-white dark:bg-slate-900 rounded-xl shadow-xl border border-slate-200 dark:border-slate-800 p-8">
+                <h2 class="text-2xl font-bold text-slate-800 dark:text-white mb-6">Create Account</h2>
+                
+                <form id="signup-form" class="space-y-4">
+                    <!-- Full Name Input -->
+                    <div>
+                        <label class="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2 block">Full Name</label>
+                        <input 
+                            id="signup-name"
+                            type="text" 
+                            class="w-full px-4 py-3 bg-slate-100 dark:bg-slate-800 border-none rounded-lg focus:ring-2 focus:ring-primary"
+                            placeholder="John Doe"
+                            required
+                        />
+                    </div>
+
+                    <!-- Email Input -->
+                    <div>
+                        <label class="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2 block">Email</label>
+                        <input 
+                            id="signup-email"
+                            type="email" 
+                            class="w-full px-4 py-3 bg-slate-100 dark:bg-slate-800 border-none rounded-lg focus:ring-2 focus:ring-primary"
+                            placeholder="your@email.com"
+                            required
+                        />
+                    </div>
+
+                    <!-- Currency Selector -->
+                    <div>
+                        <label class="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2 block">Account Currency</label>
+                        <select 
+                            id="signup-currency"
+                            class="w-full px-4 py-3 bg-slate-100 dark:bg-slate-800 border-none rounded-lg focus:ring-2 focus:ring-primary"
+                            required
+                        >
+                            <option value="USD">🇺🇸 USD - US Dollar</option>
+                            <option value="EUR">🇪🇺 EUR - Euro</option>
+                            <option value="GBP">🇬🇧 GBP - British Pound</option>
+                            <option value="JPY">🇯🇵 JPY - Japanese Yen</option>
+                            <option value="AUD">🇦🇺 AUD - Australian Dollar</option>
+                            <option value="CAD">🇨🇦 CAD - Canadian Dollar</option>
+                            <option value="CHF">🇨🇭 CHF - Swiss Franc</option>
+                            <option value="CNY">🇨🇳 CNY - Chinese Yuan</option>
+                            <option value="INR">🇮🇳 INR - Indian Rupee</option>
+                            <option value="AED">🇦🇪 AED - UAE Dirham</option>
+                        </select>
+                    </div>
+
+                    <!-- PIN Input -->
+                    <div>
+                        <label class="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2 block">Create PIN (4-6 digits)</label>
+                        <input 
+                            id="signup-pin"
+                            type="password" 
+                            maxlength="6"
+                            pattern="[0-9]{4,6}"
+                            class="w-full px-4 py-3 bg-slate-100 dark:bg-slate-800 border-none rounded-lg focus:ring-2 focus:ring-primary"
+                            placeholder="••••••"
+                            required
+                        />
+                    </div>
+
+                    <!-- Initial Deposit (Optional) -->
+                    <div>
+                        <label class="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2 block">Initial Deposit (Optional)</label>
+                        <input 
+                            id="signup-deposit"
+                            type="number" 
+                            step="0.01"
+                            min="0"
+                            class="w-full px-4 py-3 bg-slate-100 dark:bg-slate-800 border-none rounded-lg focus:ring-2 focus:ring-primary"
+                            placeholder="0.00"
+                        />
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="w-full py-3 bg-primary hover:bg-opacity-90 text-white rounded-lg font-bold transition-all">
+                        Create Account
+                    </button>
+                </form>
+
+                <!-- Divider -->
+                <div class="relative my-6">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-slate-200 dark:border-slate-800"></div>
+                    </div>
+                    <div class="relative flex justify-center text-sm">
+                        <span class="px-2 bg-white dark:bg-slate-900 text-slate-500">Already have an account?</span>
+                    </div>
+                </div>
+
+                <!-- Back to Login Link -->
+                <button id="show-login-btn" class="w-full py-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-white rounded-lg font-bold transition-all">
+                    Sign In Instead
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== MAIN DASHBOARD ==================== -->
+    <div id="dashboard-screen" class="hidden">
+        <!-- Top Navigation Header -->
+        <header class="sticky top-0 z-50 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16">
+                    <!-- Logo & Nav Links -->
+                    <div class="flex items-center gap-8">
+                        <div class="flex items-center gap-2">
+                            <div class="p-1.5 bg-primary rounded-lg text-white">
+                                <span class="material-symbols-outlined text-2xl">account_balance</span>
+                            </div>
+                            <h1 class="text-xl font-bold tracking-tight text-primary dark:text-white">FintechBank</h1>
+                        </div>
+                        <nav class="hidden md:flex items-center gap-6">
+                            <a class="text-sm font-semibold text-primary dark:text-white border-b-2 border-primary pb-5 mt-5" href="#">Dashboard</a>
+                            <a class="text-sm font-medium text-slate-500 dark:text-slate-400 hover:text-primary transition-colors" href="#">History</a>
+                            <a class="text-sm font-medium text-slate-500 dark:text-slate-400 hover:text-primary transition-colors" href="#">Settings</a>
+                        </nav>
+                    </div>
+                    
+                    <!-- User Info & Logout -->
+                    <div class="flex items-center gap-4">
+                        <div class="hidden sm:flex items-center gap-3 px-4 py-2 bg-slate-100 dark:bg-slate-800 rounded-lg">
+                            <span class="material-symbols-outlined text-slate-400">paid</span>
+                            <span id="header-currency" class="text-sm font-bold text-primary">USD</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="text-right hidden sm:block">
+                                <p id="header-user-name" class="text-sm font-bold text-slate-800 dark:text-white">Loading...</p>
+                                <p id="header-user-email" class="text-xs text-slate-500">Loading...</p>
+                            </div>
+                            <div class="h-10 w-10 rounded-full bg-primary flex items-center justify-center text-white font-bold">
+                                <span id="header-user-initials">--</span>
+                            </div>
+                        </div>
+                        <button id="logout-btn" class="p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors">
+                            <span class="material-symbols-outlined">logout</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <!-- Left Column: Main Dashboard Content (8 cols) -->
+                <div class="lg:col-span-8 space-y-8">
+                    <!-- Hero Balance Card -->
+                    <div class="relative overflow-hidden rounded-xl bg-gradient-to-br from-primary to-[#2a37b3] p-8 text-white shadow-xl">
+                        <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                            <div>
+                                <p class="text-primary-foreground/80 text-sm font-medium mb-1 opacity-80 uppercase tracking-wider">Total Available Balance</p>
+                                <div class="flex items-baseline gap-3">
+                                    <span id="balance-currency-code" class="text-xl font-semibold opacity-80">USD</span>
+                                    <h2 id="balance-amount" class="text-4xl md:text-5xl font-bold">$0.00</h2>
+                                </div>
+                                <div class="mt-4 flex items-center gap-2 text-accent-teal">
+                                    <span class="material-symbols-outlined text-sm">account_circle</span>
+                                    <span id="balance-account-number" class="text-sm font-semibold">Account: ****0000</span>
+                                </div>
+                            </div>
+                            <div class="flex gap-3 flex-wrap">
+                                <button id="view-statement-btn" class="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white px-4 py-2.5 rounded-lg font-bold text-sm transition-all flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-lg">visibility</span> View All
+                                </button>
+                            </div>
+                        </div>
+                        <!-- Decorative Element -->
+                        <div class="absolute -right-16 -top-16 size-64 bg-white/5 rounded-full blur-3xl"></div>
+                        <div class="absolute -left-16 -bottom-16 size-64 bg-accent-teal/10 rounded-full blur-3xl"></div>
+                    </div>
+
+                    <!-- Recent Transactions Section -->
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-bold text-slate-800 dark:text-white px-1">Recent Transactions</h3>
+                            <a id="view-all-transactions" class="text-sm font-semibold text-primary dark:text-primary/80 hover:underline cursor-pointer">View All</a>
+                        </div>
+                        <div id="transactions-list" class="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
+                            <!-- Transactions will be inserted here by JavaScript -->
+                            <div class="p-12 text-center text-slate-400">
+                                <span class="material-symbols-outlined text-5xl mb-2">receipt_long</span>
+                                <p>No transactions yet</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Sidebar (4 cols) -->
+                <div class="lg:col-span-4 space-y-6">
+                    <!-- Quick Actions Card -->
+                    <div class="bg-white dark:bg-slate-900 rounded-xl p-6 shadow-sm border border-slate-200 dark:border-slate-800">
+                        <h3 class="text-lg font-bold text-slate-800 dark:text-white mb-5">Quick Actions</h3>
+                        <div class="grid grid-cols-1 gap-3">
+                            <button id="transfer-btn" class="flex items-center gap-4 w-full p-3 bg-primary text-white rounded-lg hover:bg-opacity-90 transition-all shadow-md group">
+                                <div class="size-10 rounded-lg bg-white/10 flex items-center justify-center">
+                                    <span class="material-symbols-outlined">send</span>
+                                </div>
+                                <span class="font-bold">Transfer Money</span>
+                                <span class="material-symbols-outlined ml-auto text-white/50 group-hover:translate-x-1 transition-transform">chevron_right</span>
+                            </button>
+                            
+                            <button id="withdraw-btn" class="flex items-center gap-4 w-full p-3 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-white rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-all group">
+                                <div class="size-10 rounded-lg bg-white dark:bg-slate-900 flex items-center justify-center shadow-sm">
+                                    <span class="material-symbols-outlined text-primary dark:text-slate-300">account_balance_wallet</span>
+                                </div>
+                                <span class="font-bold">Withdraw</span>
+                                <span class="material-symbols-outlined ml-auto text-slate-400 group-hover:translate-x-1 transition-transform">chevron_right</span>
+                            </button>
+                            
+                            <button id="deposit-btn" class="flex items-center gap-4 w-full p-3 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-white rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-all group">
+                                <div class="size-10 rounded-lg bg-white dark:bg-slate-900 flex items-center justify-center shadow-sm">
+                                    <span class="material-symbols-outlined text-primary dark:text-slate-300">savings</span>
+                                </div>
+                                <span class="font-bold">Deposit</span>
+                                <span class="material-symbols-outlined ml-auto text-slate-400 group-hover:translate-x-1 transition-transform">chevron_right</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Account Info Card -->
+                    <div class="bg-white dark:bg-slate-900 rounded-xl p-6 shadow-sm border border-slate-200 dark:border-slate-800">
+                        <h3 class="text-lg font-bold text-slate-800 dark:text-white mb-4">Account Info</h3>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-slate-500">Account Type</span>
+                                <span class="text-sm font-bold text-slate-800 dark:text-white">Checking</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-slate-500">Currency</span>
+                                <span id="account-currency-display" class="text-sm font-bold text-primary">USD</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-slate-500">Status</span>
+                                <span class="text-sm font-bold text-accent-teal">Active</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-slate-500">Member Since</span>
+                                <span id="member-since" class="text-sm font-bold text-slate-800 dark:text-white">--</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ==================== MODALS ==================== -->
+    
+    <!-- Transfer Modal -->
+    <div id="transfer-modal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-slate-900 rounded-xl shadow-2xl max-w-md w-full p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-xl font-bold text-slate-800 dark:text-white">Transfer Money</h3>
+                <button class="close-modal text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+
+            <form id="transfer-form" class="space-y-4">
+                <div>
+                    <label class="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2 block">Recipient Email</label>
+                    <input 
+                        id="transfer-email"
+                        type="email" 
+                        class="w-full px-4 py-3 bg-slate-100 dark:bg-slate-800 border-none rounded-lg focus:ring-2 focus:ring-primary"
+                        placeholder="recipient@email.com"
+                        required
+                    />
+                </div>
+
+                <div>
+                    <label class="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2 block">Amount</label>
+                    <input 
+                        id="transfer-amount"
+                        type="number" 
+                        step="0.01"
+                        min="0.01"
+                        class="w-full px-4 py-3 bg-slate-100 dark:bg-slate-800 border-none rounded-lg focus:ring-2 focus:ring-primary"
+                        placeholder="0.00"
+                        required
+                    />
+                </div>
+
+                <div>
+                    <label class="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2 block">Description (Optional)</label>
+                    <input 
+                        id="transfer-description"
+                        type="text" 
+                        class="w-full px-4 py-3 bg-slate-100 dark:bg-slate-800 border-none rounded-lg focus:ring-2 focus:ring-primary"
+                        placeholder="What's this for?"
+                    />
+                </div>
+
+                <button type="submit" class="w-full py-3 bg-primary hover:bg-opacity-90 text-white rounded-lg font-bold transition-all">
+                    Transfer
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Withdraw Modal -->
+    <div id="withdraw-modal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-slate-900 rounded-xl shadow-2xl max-w-md w-full p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-xl font-bold text-slate-800 dark:text-white">Withdraw Cash</h3>
+                <button class="close-modal text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+
+            <form id="withdraw-form" class="space-y-4">
+                <div>
+                    <label class="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2 block">Amount</label>
+                    <input 
+                        id="withdraw-amount"
+                        type="number" 
+                        step="0.01"
+                        min="0.01"
+                        class="w-full px-4 py-3 bg-slate-100 dark:bg-slate-800 border-none rounded-lg focus:ring-2 focus:ring-primary"
+                        placeholder="0.00"
+                        required
+                    />
+                </div>
+
+                <div>
+                    <label class="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2 block">Description (Optional)</label>
+                    <input 
+                        id="withdraw-description"
+                        type="text" 
+                        class="w-full px-4 py-3 bg-slate-100 dark:bg-slate-800 border-none rounded-lg focus:ring-2 focus:ring-primary"
+                        placeholder="What's this for?"
+                    />
+                </div>
+
+                <button type="submit" class="w-full py-3 bg-primary hover:bg-opacity-90 text-white rounded-lg font-bold transition-all">
+                    Withdraw
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Deposit Modal -->
+    <div id="deposit-modal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-slate-900 rounded-xl shadow-2xl max-w-md w-full p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-xl font-bold text-slate-800 dark:text-white">Deposit Cash</h3>
+                <button class="close-modal text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+
+            <form id="deposit-form" class="space-y-4">
+                <div>
+                    <label class="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2 block">Amount</label>
+                    <input 
+                        id="deposit-amount"
+                        type="number" 
+                        step="0.01"
+                        min="0.01"
+                        class="w-full px-4 py-3 bg-slate-100 dark:bg-slate-800 border-none rounded-lg focus:ring-2 focus:ring-primary"
+                        placeholder="0.00"
+                        required
+                    />
+                </div>
+
+                <div>
+                    <label class="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2 block">Description (Optional)</label>
+                    <input 
+                        id="deposit-description"
+                        type="text" 
+                        class="w-full px-4 py-3 bg-slate-100 dark:bg-slate-800 border-none rounded-lg focus:ring-2 focus:ring-primary"
+                        placeholder="What's this for?"
+                    />
+                </div>
+
+                <button type="submit" class="w-full py-3 bg-primary hover:bg-opacity-90 text-white rounded-lg font-bold transition-all">
+                    Deposit
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ==================== TOAST CONTAINER ==================== -->
+    <div id="toast-container" class="fixed top-4 right-4 z-50 space-y-2">
+        <!-- Toasts will be inserted here by JavaScript -->
+    </div>
+
+    <!-- ==================== JAVASCRIPT FILES ==================== -->
+    <!-- Load your JS files here in order -->
+    <script src="js/models/Currency.js"></script>
+    <script src="js/models/Account.js"></script>
+    <script src="js/models/Transaction.js"></script>
+    <script src="js/utils/validator.js"></script>
+    <script src="js/utils/formatter.js"></script>
+    <script src="js/services/StorageService.js"></script>
+    <script src="js/services/AuthService.js"></script>
+    <script src="js/services/AccountService.js"></script>
+    <script src="js/views/LoginView.js"></script>
+    <script src="js/views/DashboardView.js"></script>
+    <script src="js/views/TransactionView.js"></script>
+    <script src="js/app.js"></script>
+
+</body>
+</html>
