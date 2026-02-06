@@ -18,12 +18,3 @@ class Account {
 		return `${this.getCurrencyInfo().symbol}${this.balance.toFixed(2)}`;
 	}
 }
-
-const testAccount = new Account(
-	'123456',
-	'John Doe',
-	'john@test.com',
-	'1234',
-	'EUR',
-	1000,
-);

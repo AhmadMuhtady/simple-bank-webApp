@@ -50,28 +50,3 @@ class StorageService {
 		return timestamp ? parseInt(timestamp) : null;
 	}
 }
-
-// Test saving accounts
-const testAccounts = [
-	new Account('123', 'John Doe', 'john@test.com', '1234', 'USD', 1000),
-	new Account('456', 'Jane Smith', 'jane@test.com', '5678', 'EUR', 2000),
-];
-
-StorageService.saveAccounts(testAccounts);
-console.log('Saved accounts!');
-
-// Test getting accounts
-const loaded = StorageService.getAccounts();
-console.log('Loaded accounts:', loaded);
-
-// Test current user
-StorageService.setCurrentUser('123');
-console.log('Current user:', StorageService.getCurrentUser()); // "123"
-
-// Test activity
-StorageService.updateLastActivity();
-console.log('Last activity:', StorageService.getLastActivity()); // timestamp
-
-// Test logout
-StorageService.clearSession();
-console.log('After logout:', StorageService.getCurrentUser()); // null
