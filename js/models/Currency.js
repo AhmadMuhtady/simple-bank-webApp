@@ -108,6 +108,57 @@ class Currency {
 		},
 	};
 
+	static EXCHANGE_RATES = {
+		USD: 1,
+		EUR: 0.92,
+		GBP: 0.79,
+		JPY: 149.5,
+		AUD: 1.52,
+		CAD: 1.35,
+		CHF: 0.88,
+		CNY: 7.24,
+		INR: 83.12,
+		AED: 3.67,
+		SAR: 3.75,
+		BRL: 4.97,
+		MXN: 17.08,
+		ZAR: 18.76,
+		LBP: 89500,
+	};
+
+	// NEW: Convert amount from one currency to another
+	static convert(amount, fromCurrency, toCurrency) {
+		// If same currency, no conversion needed
+		if (fromCurrency === toCurrency) {
+			return amount;
+		}
+
+		// Convert to USD first (base currency)
+		const amountInUSD = amount / this.EXCHANGE_RATES[fromCurrency];
+
+		// Then convert from USD to target currency
+		const convertedAmount = amountInUSD * this.EXCHANGE_RATES[toCurrency];
+
+		// Round to 2 decimals (except JPY which has 0)
+		const targetCurrency = this.get(toCurrency);
+		return parseFloat(convertedAmount.toFixed(targetCurrency.decimals));
+	}
+
+	// Existing methods stay the same
+	static getAll() {
+		return Object.values(this.CURRENCIES);
+	}
+
+	static get(code) {
+		return (
+			this.CURRENCIES[code] || this.CURRENCIES.USD || { code: 'USD', rate: 1 }
+		);
+	}
+
+	static isValid(code) {
+		return this.CURRENCIES[code] ? true : false;
+	}
+
 	static getAll() {
 		return Object.values(this.CURRENCIES);
 	}
